@@ -104,10 +104,7 @@ export default class App extends Component {
     this.setState({'matrix': newState}, () => {
       const isGameOver = this.findIfGameOver();
       if(isGameOver){
-        const answer = window.confirm('Game Over. All ships destroyed. Restart game?');
-        if(answer){
-          window.location.reload();
-        }
+        this.props.onGameOver();
       }
     });
   }
@@ -139,12 +136,13 @@ export default class App extends Component {
   }
   findIfGameOver(){
     const availableShips = Object.keys(this.state.ships).filter((shipName) => {
-      return this.state.ships[shipName].coords.filter((ship) => {
+      const ships = this.state.ships[shipName].coords.filter((ship) => {
         const destroyedShip = this.findIfShip(ship, 'destroyed');
-        return destroyedShip ? destroyedShip : false;
+        return destroyedShip ? false : true;
       })
+      return ships.length > 0;
     })
-    return availableShips.length === 0
+    return availableShips.length === 0;
   }
   render(){
     return (
