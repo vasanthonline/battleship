@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 export default class Cell extends Component {
 
   onCellClick(){
-    this.props.onCellClick(this.props.x, this.props.y);
+    this.props.onCellClick && this.props.onCellClick(this.props.x, this.props.y);
   }
 
   render(){
@@ -38,6 +38,6 @@ export default class Cell extends Component {
       default:
       break;
     } 
-  return <div className="cell col-md-1" onClick={this.onCellClick.bind(this)} >{icon}{this.props.ship ? this.props.ship.ship : ''}</div>
+  return <div className="cell col-md-2" onClick={this.onCellClick.bind(this)} >{icon}</div>
   }
 }
